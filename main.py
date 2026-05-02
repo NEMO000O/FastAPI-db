@@ -3,9 +3,18 @@ from sqlalchemy.orm import Session
 import models
 import database
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class CreateData(BaseModel):
